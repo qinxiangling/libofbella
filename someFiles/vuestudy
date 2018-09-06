@@ -1,0 +1,56 @@
+new Vue({
+	data:{   //数据全都放在data中
+		a:1,
+		b:[],
+		isShow:true,
+		items:[
+			{
+				label:'apple',
+				number:1
+			},
+			{
+				label:'banana',
+				number:2
+			}
+		]
+  },
+  methods:{  //方法
+  	doSomething:function(){
+  		this.a++;
+  		console.log(this.a)  
+  	},
+  	dothis: function(something){
+
+  	}
+  }，
+  watch:{ //监听，下面示例是在监听data的a，val表示a的值，oldval表示a旧的值
+  	'a':function (val, oldVal) {
+  		console.log(val, oldVal)
+  	}
+  }
+})
+
+//模板指令-html和vue对象的粘合剂，使用在html标签中
+//a值会随着上面methods自增长，标签p的值也会跟着改变
+<p>{{ a }}</p> 
+<p v-text="a"></p>
+<p v-html="a"></p>
+
+//v-if v-show,v-if是直接不渲染这个标签，v-show是通过css的displayline来进行隐藏和显示,代码中能看到这个dom元素
+
+//v-for 渲染循环列表,items是DataSource，item是定义的循环变量，每一个循环变量可以点出她的属性，item.label，
+<ul>
+	<li v-for='item in items'>
+		<p v-text='item.label'></p>
+	</li>
+</ul>
+
+//v-on 时间绑定，从methods里面取方法，可以绑定click，hover等
+<button v-on:click="dothis"></button>
+<button @click="dothis"></button> 
+
+//v-bind 属性绑定 
+<img v-bind:src="imagesrc">
+<div :class="{ red: isRed}"></div> //对象：判断是否有这个class的判断
+<div :class="[ classA, classB]"></div> //数组表示有多个class，classA和classB在data中要有对应的字符串值，
+<div :class="[ classA, { classB: isB, classC: isC } ]"></div> //classA表示有这个class，后面的classB和classC需要判断是否展现
